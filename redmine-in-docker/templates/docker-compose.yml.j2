@@ -2,6 +2,7 @@ version: "3"
  
 services:
   webapp:
+    hostname: webapp
     depends_on:
       - db 
     image: redmine-in-docker
@@ -13,6 +14,7 @@ services:
 
   db:
     image: mysql
+    hostname: mysql
     environment:
       - MYSQL_USER={{ MYSQL_USER }}
       - MYSQL_PASSWORD={{ MYSQL_PASSWORD }}

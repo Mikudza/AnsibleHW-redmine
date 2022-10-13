@@ -21,9 +21,10 @@ COPY ./database.yml ./config/database.yml
 
 COPY ./redmine.conf /etc/apache2/sites-available
 
-RUN echo "ServernName localhost" >> /etc/apache2/apache2.conf 
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf 
 
-RUN gem install bundler && bundle install 
+RUN echo "gem 'tzinfo-data'">>Gemfile &&\
+    gem install bundler && bundle install  
 
 RUN a2dissite 000-default.conf && a2ensite redmine.conf
 

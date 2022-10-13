@@ -87,7 +87,8 @@
 - name: Copy startup script
   copy:
     src: ./files/start.sh
-    dest: "{{ REDMINE_DIR }}"    
+    dest: "{{ REDMINE_DIR }}" 
+    mode: "0755"   
 
 - name: Build image of redmine container
   community.docker.docker_image:
