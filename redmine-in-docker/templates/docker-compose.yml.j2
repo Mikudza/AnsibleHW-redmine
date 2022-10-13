@@ -1,0 +1,33 @@
+version: "3"
+ 
+services:
+  webapp:
+    depends_on:
+      - db 
+    image: redmine-in-docker
+    ports:
+      - 80:80
+    networks:
+      - vpcbr
+
+
+  db:
+    image: mysql
+    environment:
+      - MYSQL_USER={{ MYSQL_USER }}
+      - MYSQL_PASSWORD={{ MYSQL_PASSWORD }}
+      - MYSQL_DATABASE={{ MYSQL_DATABASE }}
+      - MYSQL_ROOT_PASSWORD={{ MYSQL_ROOT_PASSWORD }}
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+    networks:
+     - vpcbr
+
+    
+
+networks:
+  vpcbr:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.28.0.0/24
+         gateway: 172.28.0.1         

@@ -1,0 +1,11 @@
+---
+# vars file for redmine-in-docker
+MYSQL_HOST: mysql
+MYSQL_USER: redmine
+MYSQL_PASSWORD: redmine
+MYSQL_DATABASE: redmine
+MYSQL_ROOT_PASSWORD: redmine
+REDMINE_DIR : /home/ubuntu/redmine
+REDMINE_VERSION: redmine-5.0.1
+RAILS_ENV: production
+SECRET_KEY_BASE: secret-key
