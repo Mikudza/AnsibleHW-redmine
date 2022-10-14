@@ -107,6 +107,12 @@
   copy:
     src: ./files/start.sh
     dest: "{{ REDMINE_DIR }}" 
+    mode: "0755"
+
+- name: Copy bundle
+  copy:
+    src: ./files/bundle
+    dest: "{{ REDMINE_DIR }}" 
     mode: "0755"   
 
 - name: Build image of redmine container

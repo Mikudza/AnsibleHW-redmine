@@ -23,13 +23,15 @@ COPY ./redmine.conf /etc/apache2/sites-available
 
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf 
   
-COPY ./ruby/3.0.0/ /var/lib/gems/3.0.0/
+COPY ./ruby/3.0.0/ /usr/lib/ruby/3.0.0/
+
+COPY ./bundle /usr/local/bin/bundle
 
 RUN a2dissite 000-default.conf && a2ensite redmine.conf
 
 EXPOSE 80
 
-RUN apachectl stop
+#RUN apachectl stop
 
 COPY ./start.sh .
 
