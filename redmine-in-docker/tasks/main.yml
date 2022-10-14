@@ -1,7 +1,7 @@
 ---
 # tasks file for redmine-in-docker
 
-- name: Install prerequisites
+- name: Install prerequisites and Ruby
   package:
     name: "{{ item }}"
     state: present
@@ -9,7 +9,9 @@
   loop:
    - ca-certificates 
    - curl
-   - gnupg  
+   - gnupg
+   - ruby
+   - ruby-dev
 
 - name: Make sure /etc/apt/keyrings exists
   file:
@@ -63,6 +65,23 @@
     src: "https://redmine.org/releases/{{ REDMINE_VERSION }}.tar.gz"
     dest: "{{ REDMINE_DIR }}"
     remote_src: yes
+
+- name: Install Bundler and tzinfo-data
+  community.general.gem:
+    name:  "{{ item }}"
+    state: latest
+    norc: yes
+    install_dir: /var/lib/gems/3.0.0/
+    user_install: no
+  loop:
+    - bundler
+    - tzinfo-data  
+
+- name: Download dependencies from Gemfile 
+  bundler:
+    state: present
+    gemfile: "{{ REDMINE_DIR }}/{{ REDMINE_VERSION }}/Gemfile"
+    gem_path: "{{ REDMINE_DIR }}"  
 
 - name: Render Dockerfile template
   template:
